@@ -10,13 +10,20 @@ This does not work for `go get` and its untested on other dependency managers (g
 
 ## Usage
 
+Deproxy works on linux and osx.
+
+Install:
+```sh
+go get github.com/fnproject/deproxy
+```
+
 Deproxy allows you to reference vanity-named packages  (e.g. `mycompany.mydomain/foo/mypackage`) on private repos.
 
-Your code, and all dependencies must reference packages consistently via the same vanity packages, including via transitive dependencies and internally within those packages themselves-  this tool *DOES NOT* solve issues around different namespacing.
+Your code, and all dependencies must reference packages consistently via the same vanity packages, including via transitive dependencies and internally within those packages themselves-this tool *DOES NOT* solve issues around different namespacing.
 
-Vanity domains used with do not need to be resolvable.
+Domains in vanity packages do not need to be resolvable.
 
-All packages under a given domain must be vanity domains and must be re-written (i.e. you can't mix and match rewritten and non-rewritten URLS and you can't use deproxy to override public github or public bitbucket packages).
+All packages under a given domain must be vanity packages and must be re-written (i.e. you can't mix and match rewritten and non-rewritten URLS on the smae domain and you can't use deproxy to override public github or public bitbucket packages).
 
 
 `deproxy` uses a rewrite file : `Deproxy.toml` this must contain  `[[ rewrite ]]` entries for each top-level package containing it's corresponding git repo.
@@ -40,7 +47,7 @@ Note if `source` is https it *must* be on a domain that is not included in any `
 
 Store this in the root of your repo.
 
-To use the proxy you need to run it as a command wrapper around `dep` e.g.:
+To use deproxy you need to run it as a command wrapper around `dep` e.g.:
 
 ```
 deproxy dep init
